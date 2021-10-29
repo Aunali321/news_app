@@ -12,3 +12,9 @@ const kSmallText = TextStyle(
   fontSize: 14,
   color: Color(0x95000000),
 );
+
+const kArticleTitle = TextStyle(
+  fontFamily: "Poppins",
+  fontSize: 14,
+  fontWeight: FontWeight.w600,
+);
