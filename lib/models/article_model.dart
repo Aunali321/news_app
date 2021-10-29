@@ -22,7 +22,7 @@ class ArticleModel {
       media: json['media'] as String,
       publishedDate: json['publishedDate'] as String,
       cleanURL: json['cleanURL'] as String,
-      topic: json['topic'],
+      topic: json['topic'] as String,
     );
   }
 }

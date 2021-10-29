@@ -13,6 +13,11 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   NetworkFetcher networkFetcher = NetworkFetcher();
+  @override
+  void initState() {
+    networkFetcher.getArticles();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,26 +53,26 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 20,
               ),
               const SearchBar(),
-              FutureBuilder(
-                future: networkFetcher.getArticles(),
-                builder: (BuildContext context,
-                    AsyncSnapshot<List<ArticleModel>> snapshot) {
-                  if (snapshot.hasData) {
-                    List<ArticleModel> articles = snapshot.data;
-                    return ListView.builder(
-                      itemCount: articles.length,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          title: Text(articles[index].title),
-                        );
-                      },
-                    );
-                  }
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                },
-              )
+              // FutureBuilder(
+              //   future: networkFetcher.getArticles(),
+              //   builder: (BuildContext context,
+              //       AsyncSnapshot<List<ArticleModel>> snapshot) {
+              //     if (snapshot.hasData) {
+              //       List<ArticleModel> articles = snapshot.data;
+              //       return ListView.builder(
+              //         itemCount: articles.length,
+              //         itemBuilder: (context, index) {
+              //           return ListTile(
+              //             title: Text(articles[index].title),
+              //           );
+              //         },
+              //       );
+              //     }
+              //     return Center(
+              //       child: CircularProgressIndicator(),
+              //     );
+              //   },
+              // )
             ],
           ),
         ),
