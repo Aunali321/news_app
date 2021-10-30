@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:news_app/constants.dart';
 import 'package:news_app/models/article_model.dart';
 import 'package:news_app/networking/network.dart';
@@ -39,9 +40,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 iconSize: 28,
                 alignment: Alignment.centerLeft,
               ),
-              const SizedBox(
-                height: 10,
-              ),
               const Text(
                 "Discover",
                 style: kBoldText,
@@ -54,6 +52,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 20,
               ),
               const SearchBar(),
+              const SizedBox(
+                height: 10,
+              ),
               Container(
                 height: 500,
                 child: FutureBuilder(
@@ -73,8 +74,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                       );
                     }
-                    return Center(
-                      child: CircularProgressIndicator(),
+                    return SpinKitDoubleBounce(
+                      color: Colors.blueGrey[300],
                     );
                   },
                 ),
