@@ -21,6 +21,11 @@ class Article extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
+        Divider(
+          height: 10,
+          thickness: 10,
+          color: Colors.black,
+        ),
         Flexible(
           child: Padding(
             padding: const EdgeInsets.only(right: 8.0),
@@ -38,6 +43,11 @@ class Article extends StatelessWidget {
             height: 110,
             width: 120,
           ),
+        ),
+        Divider(
+          height: 10,
+          thickness: 10,
+          color: Colors.black,
         ),
       ],
     );

@@ -15,6 +15,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   NetworkFetcher networkFetcher = NetworkFetcher();
+  int currentIndex = 0;
+
   @override
   void initState() {
     networkFetcher.getArticles();
@@ -24,6 +26,38 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: BottomNavigationBarTheme(
+        data: BottomNavigationBarThemeData(
+            unselectedItemColor: Colors.black,
+            selectedItemColor: Colors.blue,
+            elevation: 50),
+        child: BottomNavigationBar(
+          currentIndex: currentIndex,
+          onTap: (value) {
+            currentIndex = value;
+            setState(() {});
+          },
+          type: BottomNavigationBarType.shifting,
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: "Home",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.search),
+              label: "Search",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.trending_up),
+              label: "Trending",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.account_circle),
+              label: "Trending",
+            ),
+          ],
+        ),
+      ),
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.only(left: 20, right: 20),
@@ -56,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 10,
               ),
               Container(
-                height: 500,
+                height: 450,
                 child: FutureBuilder(
                   future: networkFetcher.getArticles(),
                   builder: (BuildContext context,
