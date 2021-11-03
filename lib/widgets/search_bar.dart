@@ -2,60 +2,40 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SearchBar extends StatelessWidget {
-  const SearchBar({Key key}) : super(key: key);
+  SearchBar({Key key}) : super(key: key);
+  final TextEditingController _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      // height: 40,
-      // decoration: BoxDecoration(
-      //   color: Colors.grey[300],
-      //   borderRadius: BorderRadius.circular(10),
-      // ),
       child: Row(
         children: [
           Expanded(
             child: TextField(
+              controller: _controller,
+              onEditingComplete: () {},
               decoration: InputDecoration(
                 fillColor: Colors.grey[300],
                 filled: true,
-                hintText: "Search",
+                contentPadding: EdgeInsets.all(14.0),
+                hintText: 'Search',
                 hintStyle: TextStyle(
-                  fontFamily: "Poppins",
+                  fontFamily: 'Poppins',
+                  color: Color(0x95000000),
                   fontWeight: FontWeight.w400,
                 ),
-                prefix: Padding(
-                  padding: const EdgeInsets.only(right: 12.0),
-                  child: Image.asset(
-                    "assets/images/search.png",
-                    alignment: Alignment.bottomLeft,
-                    scale: 1.3,
-                    color: const Color(0x95000000),
-                    height: 28,
-                  ),
+                prefixIcon: Icon(
+                  Icons.search,
+                  color: Color(0x95000000),
+                  size: 24.0,
                 ),
-                contentPadding: EdgeInsets.only(left: 18),
                 border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide.none),
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide.none,
+                ),
               ),
             ),
           ),
-          // MaterialButton(
-          //   onPressed: () {},
-          //   child: Image.asset(
-          //     "assets/images/search.png",
-          //     scale: 1.3,
-          //     color: const Color(0x95000000),
-          //   ),
-          //   minWidth: 10,
-          // ),
-          // const Text(
-          //   "Search",
-          //   style: TextStyle(
-          //     color: Color(0x95000000),
-          //   ),
-          // ),
         ],
       ),
     );

@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 import '../models/article_model.dart';
 
@@ -35,6 +33,7 @@ class NetworkFetcher {
       return articles;
     } else {
       print(response.statusCode);
+      return [];
     }
   }
 }
