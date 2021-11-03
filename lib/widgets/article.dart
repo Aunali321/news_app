@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/constants.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Article extends StatelessWidget {
   const Article(
@@ -19,35 +20,56 @@ class Article extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
       children: [
-        Divider(
-          height: 10,
-          thickness: 10,
-          color: Colors.black,
-        ),
-        Flexible(
-          child: Padding(
-            padding: const EdgeInsets.only(right: 8.0),
-            child: Text(
-              '$title',
-              maxLines: 3,
-              style: kArticleTitle,
+        Row(
+          children: [
+            Flexible(
+              child: Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: GestureDetector(
+                  onTap: () async {
+                    print(url);
+                    if (await canLaunch(url)) {
+                      await launch(
+                        url,
+                        forceSafariVC: true,
+                        forceWebView: false,
+                        enableJavaScript: true,
+                      );
+                    } else {
+                      throw 'Could not launch $url';
+                    }
+                  },
+                  child: Text(
+                    '$title',
+                    maxLines: 3,
+                    style: kArticleTitle,
+                  ),
+                ),
+              ),
             ),
-          ),
-        ),
-        Container(
-          alignment: Alignment.centerRight,
-          child: Image.network(
-            '$imageURL',
-            height: 110,
-            width: 120,
-          ),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(12.0),
+              child: Container(
+                alignment: Alignment.centerRight,
+                child: Image.network(
+                  '$imageURL',
+                  height: 75,
+                  width: 120,
+                  fit: BoxFit.fill,
+                ),
+                constraints: BoxConstraints(
+                  maxHeight: 75,
+                  maxWidth: 120,
+                ),
+              ),
+            ),
+          ],
         ),
         Divider(
-          height: 10,
-          thickness: 10,
-          color: Colors.black,
+          thickness: 0.5,
+          color: Color(0x75000000),
         ),
       ],
     );

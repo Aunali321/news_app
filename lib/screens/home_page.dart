@@ -25,6 +25,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final sHeight = MediaQuery.of(context).size.height;
+    final sWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       bottomNavigationBar: BottomNavigationBarTheme(
         data: BottomNavigationBarThemeData(
@@ -90,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 10,
               ),
               Container(
-                height: 450,
+                height: sWidth * 1.15,
                 child: FutureBuilder(
                   future: networkFetcher.getArticles(),
                   builder: (BuildContext context,
@@ -104,6 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             title: articles[index].title,
                             imageURL: articles[index].imageURL,
                             publishedAt: articles[index].publishedAt,
+                            url: articles[index].url,
                           );
                         },
                       );
