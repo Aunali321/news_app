@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class Article extends StatelessWidget {
   const Article(
@@ -53,8 +54,8 @@ class Article extends StatelessWidget {
               borderRadius: BorderRadius.circular(12.0),
               child: Container(
                 alignment: Alignment.centerRight,
-                child: Image.network(
-                  '$imageURL',
+                child: Image(
+                  image: CachedNetworkImageProvider(imageURL),
                   height: 75,
                   width: 120,
                   fit: BoxFit.fill,

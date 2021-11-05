@@ -71,7 +71,7 @@ class NetworkFetcher {
       List<dynamic> body = json['articles'];
       List<ArticleModel> articles =
           body.map((dynamic item) => ArticleModel.fromJson(item)).toList();
-      // print(body);
+      print(json['articles'][0]['urlToImage']);
       return articles;
     } else {
       print("Error getting treding news: ${response.statusCode}");
