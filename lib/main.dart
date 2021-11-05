@@ -20,7 +20,7 @@ class _MyAppState extends State<MyApp> {
     SearchScreen(),
     TrendingScreen(),
   ];
-  int currentIndex = 1;
+  int currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {

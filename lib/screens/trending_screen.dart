@@ -22,7 +22,7 @@ class _TrendingScreenState extends State<TrendingScreen> {
       padding: const EdgeInsets.only(left: 20, right: 20),
       height: screenHeight * 1,
       child: FutureBuilder(
-        future: networkFetcher.getArticles(),
+        future: networkFetcher.getTrendingArticles(),
         builder:
             (BuildContext context, AsyncSnapshot<List<ArticleModel>> snapshot) {
           if (snapshot.hasData) {
