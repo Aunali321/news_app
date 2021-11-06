@@ -29,9 +29,10 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         bottomNavigationBar: BottomNavigationBarTheme(
           data: BottomNavigationBarThemeData(
-              unselectedItemColor: Colors.black,
-              selectedItemColor: Colors.blue,
-              elevation: 50),
+            unselectedItemColor: Colors.black,
+            selectedItemColor: Colors.blue,
+            elevation: 50,
+          ),
           child: BottomNavigationBar(
             currentIndex: currentIndex,
             onTap: (value) {
@@ -54,7 +55,7 @@ class _MyAppState extends State<MyApp> {
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.account_circle),
-                label: "Trending",
+                label: "Account",
               ),
             ],
           ),
