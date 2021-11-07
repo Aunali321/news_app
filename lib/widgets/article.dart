@@ -21,9 +21,6 @@ class Article extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final substringedDate =
-        DateTime.parse(publishedAt).toString().substring(0, 10);
-
     return Column(
       children: [
         Row(
