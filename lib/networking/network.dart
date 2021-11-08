@@ -41,7 +41,7 @@ class NetworkFetcher {
   Future<List<SearchArticleModel>> getSearchArticles(String searchQuery) async {
     var response = await http.get(
       Uri.parse(
-          "https://free-news.p.rapidapi.com/v1/search?q=$searchQuery&lang=en"),
+          "https://free-news.p.rapidapi.com/v1/search?q=${searchQuery}&lang=en"),
       headers: {
         "x-rapidapi-host": "free-news.p.rapidapi.com",
         "x-rapidapi-key": "b8dbf08bbamshfa839ce8398d8f7p13ed2fjsn80ee58a61a8d"

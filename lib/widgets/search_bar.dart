@@ -2,7 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SearchBar extends StatefulWidget {
-  SearchBar({Key key}) : super(key: key);
+  SearchBar({
+    Key key,
+    @required this.queryPassed,
+  }) : super(key: key);
+
+  final Function queryPassed;
 
   @override
   State<SearchBar> createState() => _SearchBarState();
@@ -18,10 +23,7 @@ class _SearchBarState extends State<SearchBar> {
         children: [
           Expanded(
             child: TextField(
-              onSubmitted: (newTextInput) {
-                textInput = newTextInput;
-                print(textInput);
-              },
+              onSubmitted: widget.queryPassed,
               decoration: InputDecoration(
                 fillColor: Colors.grey[300],
                 filled: true,
