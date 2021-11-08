@@ -6,22 +6,9 @@ import 'package:news_app/networking/network.dart';
 import 'package:news_app/widgets/article.dart';
 import 'package:news_app/widgets/search_bar.dart';
 
-class SearchScreen extends StatefulWidget {
-  SearchScreen({Key key}) : super(key: key);
+NetworkFetcher networkFetcher = NetworkFetcher();
 
-  @override
-  State<SearchScreen> createState() => _SearchScreenState();
-}
-
-class _SearchScreenState extends State<SearchScreen> {
-  NetworkFetcher networkFetcher = NetworkFetcher();
-
-  @override
-  void initState() {
-    networkFetcher.getSearchArticles("Meta");
-    super.initState();
-  }
-
+class SearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
@@ -58,35 +45,56 @@ class _SearchScreenState extends State<SearchScreen> {
               const SizedBox(
                 height: 10,
               ),
-              Container(
-                height: screenHeight * 0.568,
-                child: FutureBuilder(
-                  future: networkFetcher.getSearchArticles("Meta"),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<List<SearchArticleModel>> snapshot) {
-                    if (snapshot.hasData) {
-                      List<SearchArticleModel> articles = snapshot.data;
-                      return ListView.builder(
-                        itemCount: articles.length,
-                        itemBuilder: (context, index) {
-                          return Article(
-                            title: articles[index].title,
-                            imageURL: articles[index].imageURL,
-                            publishedAt: articles[index].publishedAt,
-                            url: articles[index].url,
-                          );
-                        },
-                      );
-                    }
-                    return SpinKitDoubleBounce(
-                      color: Colors.blueGrey[300],
-                    );
-                  },
-                ),
-              ),
+              SearchScreenNews(screenHeight: screenHeight, searchQuery: null),
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class SearchScreenNews extends StatefulWidget {
+  SearchScreenNews({
+    Key key,
+    @required this.screenHeight,
+    @required this.searchQuery,
+  }) : super(key: key);
+
+  final double screenHeight;
+  final String searchQuery;
+
+  @override
+  State<SearchScreenNews> createState() => _SearchScreenNewsState();
+}
+
+class _SearchScreenNewsState extends State<SearchScreenNews> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: widget.screenHeight * 0.568,
+      child: FutureBuilder(
+        // future: networkFetcher.getSearchArticles(searchQuery),
+        builder: (BuildContext context,
+            AsyncSnapshot<List<SearchArticleModel>> snapshot) {
+          if (snapshot.hasData) {
+            List<SearchArticleModel> articles = snapshot.data;
+            return ListView.builder(
+              itemCount: articles.length,
+              itemBuilder: (context, index) {
+                return Article(
+                  title: articles[index].title,
+                  imageURL: articles[index].imageURL,
+                  publishedAt: articles[index].publishedAt,
+                  url: articles[index].url,
+                );
+              },
+            );
+          }
+          return SpinKitDoubleBounce(
+            color: Colors.blueGrey[300],
+          );
+        },
       ),
     );
   }

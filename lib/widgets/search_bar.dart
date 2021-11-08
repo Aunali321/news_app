@@ -1,9 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class SearchBar extends StatelessWidget {
+class SearchBar extends StatefulWidget {
   SearchBar({Key key}) : super(key: key);
-  final TextEditingController _controller = TextEditingController();
+
+  @override
+  State<SearchBar> createState() => _SearchBarState();
+}
+
+class _SearchBarState extends State<SearchBar> {
+  String textInput;
 
   @override
   Widget build(BuildContext context) {
@@ -12,8 +18,10 @@ class SearchBar extends StatelessWidget {
         children: [
           Expanded(
             child: TextField(
-              controller: _controller,
-              onEditingComplete: () {},
+              onSubmitted: (newTextInput) {
+                textInput = newTextInput;
+                print(textInput);
+              },
               decoration: InputDecoration(
                 fillColor: Colors.grey[300],
                 filled: true,
