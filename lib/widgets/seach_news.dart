@@ -17,7 +17,7 @@ class SearchScreenNews extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: screenHeight * 0.568,
+      height: screenHeight * 1,
       child: FutureBuilder(
         future: networkFetcher.getSearchArticles(searchQuery),
         builder: (BuildContext context,

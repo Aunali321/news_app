@@ -71,7 +71,9 @@ class Article extends StatelessWidget {
         Align(
           alignment: Alignment.centerLeft,
           child: Text(
-              '${publishedAt.substring(0, 10).split('-').reversed.join('-')}'),
+            '${publishedAt.substring(0, 10).split('-').reversed.join('-')}',
+            style: kArticleDate,
+          ),
         ),
         Divider(
           thickness: 0.5,

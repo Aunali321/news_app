@@ -31,13 +31,6 @@ class _SearchScreenState extends State<SearchScreen> {
                 const SizedBox(
                   height: 20,
                 ),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.menu),
-                  padding: EdgeInsets.zero,
-                  iconSize: 28,
-                  alignment: Alignment.centerLeft,
-                ),
                 const Text(
                   "Discover",
                   style: kBoldText,
@@ -60,7 +53,9 @@ class _SearchScreenState extends State<SearchScreen> {
                   height: 10,
                 ),
                 SearchScreenNews(
-                    screenHeight: screenHeight, searchQuery: query),
+                  screenHeight: screenHeight,
+                  searchQuery: query,
+                ),
               ],
             ),
           ),

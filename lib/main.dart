@@ -53,10 +53,10 @@ class _MyAppState extends State<MyApp> {
                 icon: Icon(Icons.trending_up),
                 label: "Trending",
               ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.account_circle),
-                label: "Account",
-              ),
+              // BottomNavigationBarItem(
+              //   icon: Icon(Icons.account_circle),
+              //   label: "Account",
+              // ),
             ],
           ),
         ),
