@@ -16,50 +16,47 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
+    final mediaQuery = MediaQuery.of(context);
+    final appBar = AppBar(
+      title: Text('Latest News'),
+      titleTextStyle: Theme.of(context).appBarTheme.titleTextStyle,
+      centerTitle: Theme.of(context).appBarTheme.centerTitle,
+      backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+      iconTheme: Theme.of(context).appBarTheme.iconTheme,
+      elevation: 3.0,
+    );
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Latest News'),
-        titleTextStyle: Theme.of(context).appBarTheme.titleTextStyle,
-        centerTitle: Theme.of(context).appBarTheme.centerTitle,
-        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-        iconTheme: Theme.of(context).appBarTheme.iconTheme,
-        elevation: 3.0,
-      ),
+      appBar: appBar,
       body: SafeArea(
-        child: Column(
-          children: [
-            SizedBox(
-              height: screenHeight * 0.01,
-            ),
-            Container(
-              padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-              height: screenHeight * 0.825,
-              child: FutureBuilder(
-                future: networkFetcher.getArticles(),
-                builder: (BuildContext context,
-                    AsyncSnapshot<List<ArticleModel>> snapshot) {
-                  if (snapshot.hasData) {
-                    List<ArticleModel> articles = snapshot.data;
-                    return ListView.builder(
-                      itemCount: articles.length,
-                      itemBuilder: (context, index) {
-                        return Article(
-                          title: articles[index].title,
-                          imageURL: articles[index].imageURL,
-                          publishedAt: articles[index].publishedAt,
-                          url: articles[index].url,
-                        );
-                      },
+        child: Container(
+          padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),
+          height: mediaQuery.size.height -
+              mediaQuery.padding.top -
+              appBar.preferredSize.height -
+              mediaQuery.padding.bottom,
+          child: FutureBuilder(
+            future: networkFetcher.getArticles(),
+            builder: (BuildContext context,
+                AsyncSnapshot<List<ArticleModel>> snapshot) {
+              if (snapshot.hasData) {
+                List<ArticleModel> articles = snapshot.data;
+                return ListView.builder(
+                  itemCount: articles.length,
+                  itemBuilder: (context, index) {
+                    return Article(
+                      title: articles[index].title,
+                      imageURL: articles[index].imageURL,
+                      publishedAt: articles[index].publishedAt,
+                      url: articles[index].url,
                     );
-                  }
-                  return SpinKitDoubleBounce(
-                    color: Colors.blueGrey[300],
-                  );
-                },
-              ),
-            ),
-          ],
+                  },
+                );
+              }
+              return SpinKitDoubleBounce(
+                color: Colors.blueGrey[300],
+              );
+            },
+          ),
         ),
       ),
     );

@@ -44,6 +44,12 @@ class _SearchBarState extends State<SearchBar> {
                   borderSide: BorderSide.none,
                 ),
               ),
+              style: TextStyle(
+                fontFamily: 'Poppins',
+                color: Color(0xFF000000),
+                fontWeight: FontWeight.w400,
+                fontSize: 16,
+              ),
             ),
           ),
         ],

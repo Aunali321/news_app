@@ -36,7 +36,7 @@ class _MyAppState extends State<MyApp> {
     TrendingScreen(),
     SettingsScreen(),
   ];
-  int currentIndex = 3;
+  int currentIndex = 2;
 
   @override
   Widget build(BuildContext context) {

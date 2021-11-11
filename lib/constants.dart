@@ -10,7 +10,6 @@ const kSmallText = TextStyle(
   fontFamily: "Poppins",
   fontWeight: FontWeight.w400,
   fontSize: 14,
-  color: Color(0x95000000),
 );
 
 const kArticleTitle = TextStyle(
