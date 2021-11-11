@@ -23,12 +23,10 @@ const kAppBarTitle = TextStyle(
   fontSize: 20,
   fontWeight: FontWeight.bold,
   fontFamily: 'Poppins',
-  color: Colors.black,
 );
 
 const kArticleDate = TextStyle(
   fontFamily: "Poppins",
   fontSize: 12,
   fontWeight: FontWeight.w400,
-  color: Color(0x95000000),
 );

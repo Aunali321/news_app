@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/constants.dart';
 import 'package:news_app/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -15,12 +14,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Settings',
-          style: kAppBarTitle,
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.white,
+        title: Text('Settings'),
+        titleTextStyle: Theme.of(context).appBarTheme.titleTextStyle,
+        centerTitle: Theme.of(context).appBarTheme.centerTitle,
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
       ),
       body: SafeArea(
         child: Column(

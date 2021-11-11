@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/constants.dart';
 import 'package:news_app/networking/network.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../models/article_model.dart';
@@ -20,12 +19,11 @@ class _HomeScreenState extends State<HomeScreen> {
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Latest News',
-          style: kAppBarTitle,
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.white70,
+        title: Text('Latest News'),
+        titleTextStyle: Theme.of(context).appBarTheme.titleTextStyle,
+        centerTitle: Theme.of(context).appBarTheme.centerTitle,
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+        iconTheme: Theme.of(context).appBarTheme.iconTheme,
         elevation: 3.0,
       ),
       body: SafeArea(

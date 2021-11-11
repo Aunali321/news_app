@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/constants.dart';
 import 'package:news_app/networking/network.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+
 import '../models/article_model.dart';
 import '../widgets/article.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class TrendingScreen extends StatefulWidget {
   TrendingScreen({Key key}) : super(key: key);
@@ -21,12 +21,11 @@ class _TrendingScreenState extends State<TrendingScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Trending News',
-          style: kAppBarTitle,
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.white70,
+        title: Text('Trending News'),
+        titleTextStyle: Theme.of(context).appBarTheme.titleTextStyle,
+        centerTitle: Theme.of(context).appBarTheme.centerTitle,
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+        iconTheme: Theme.of(context).appBarTheme.iconTheme,
         elevation: 3.0,
       ),
       body: SafeArea(

@@ -7,18 +7,19 @@ import 'package:news_app/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-bool isDarkModeOn;
-
-Future<void> main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  isDarkModeOn = prefs.getBool('isDarkTheme');
-
-  return runApp(ChangeNotifierProvider(
-    child: MyApp(),
-    create: (BuildContext context) =>
-        ThemeProvider(isDarkMode: prefs.getBool('isDarkTheme')),
-  ));
+  SharedPreferences.getInstance().then((prefs) {
+    var isDarkTheme = prefs.getBool("isDarkTheme") ?? false;
+    return runApp(
+      ChangeNotifierProvider<ThemeProvider>(
+        child: MyApp(),
+        create: (BuildContext context) {
+          return ThemeProvider(isDarkMode: isDarkTheme);
+        },
+      ),
+    );
+  });
 }
 
 class MyApp extends StatefulWidget {
@@ -35,22 +36,17 @@ class _MyAppState extends State<MyApp> {
     TrendingScreen(),
     SettingsScreen(),
   ];
-  int currentIndex = 0;
+  int currentIndex = 3;
 
   @override
   Widget build(BuildContext context) {
     return Consumer<ThemeProvider>(builder: (context, themeProvider, child) {
       return MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: themeProvider.getTheme,
+        theme: themeProvider.getTheme(),
         home: Scaffold(
           bottomNavigationBar: BottomNavigationBarTheme(
-            data: BottomNavigationBarThemeData(
-              unselectedItemColor:
-                  isDarkModeOn != null ? Colors.white : Colors.black,
-              selectedItemColor: Colors.blue,
-              elevation: 50,
-            ),
+            data: themeProvider.getTheme().bottomNavigationBarTheme,
             child: BottomNavigationBar(
               currentIndex: currentIndex,
               onTap: (value) {

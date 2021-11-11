@@ -1,15 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:news_app/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ThemeProvider extends ChangeNotifier {
   ThemeData _selectedTheme;
+  SharedPreferences prefs;
 
-  ThemeData light = ThemeData.light();
+  ThemeData light = ThemeData.light().copyWith(
+    appBarTheme: AppBarTheme(
+      backgroundColor: Colors.white,
+      titleTextStyle: kAppBarTitle.copyWith(color: Colors.black),
+      centerTitle: true,
+      iconTheme: IconThemeData(
+        color: Colors.black,
+      ),
+      systemOverlayStyle: SystemUiOverlayStyle.light,
+    ),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: Colors.white,
+      unselectedItemColor: Colors.black,
+      selectedItemColor: Colors.blue,
+    ),
+  );
 
   ThemeData dark = ThemeData.dark().copyWith(
     appBarTheme: AppBarTheme(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.grey[900],
+      titleTextStyle: kAppBarTitle.copyWith(color: Colors.white),
+      centerTitle: true,
       iconTheme: IconThemeData(
         color: Colors.white,
       ),
@@ -17,8 +36,8 @@ class ThemeProvider extends ChangeNotifier {
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: Colors.black,
-      unselectedItemColor: Colors.white54,
-      selectedItemColor: Colors.white,
+      unselectedItemColor: Colors.white,
+      selectedItemColor: Colors.blue,
     ),
   );
 
@@ -27,7 +46,7 @@ class ThemeProvider extends ChangeNotifier {
   }
 
   Future<void> swapTheme() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs = await SharedPreferences.getInstance();
     if (_selectedTheme == dark) {
       _selectedTheme = light;
       prefs.setBool('isDarkTheme', false);
@@ -38,5 +57,5 @@ class ThemeProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  ThemeData get getTheme => _selectedTheme;
+  ThemeData getTheme() => _selectedTheme;
 }
