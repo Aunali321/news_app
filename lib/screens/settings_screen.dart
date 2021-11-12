@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/constants.dart';
+import 'package:news_app/models/country_model.dart';
 import 'package:news_app/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -10,24 +12,28 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  String dropDownValue = 'India';
+
   @override
   Widget build(BuildContext context) {
+    final countries = Provider.of<Country>(context).countries;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Settings'),
         titleTextStyle: Theme.of(context).appBarTheme.titleTextStyle,
         centerTitle: Theme.of(context).appBarTheme.centerTitle,
         backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+        elevation: 2.0,
       ),
       body: SafeArea(
         child: Column(
           children: [
-            Text(
-              'Settings Page',
-              style: Theme.of(context).textTheme.headline5,
-            ),
             ListTile(
-              leading: Text("Dark Mode"),
+              leading: Text(
+                "Dark Mode",
+                style: kArticleTitle,
+              ),
               trailing: IconButton(
                 icon: Icon(Icons.brightness_6),
                 onPressed: () {
@@ -41,19 +47,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 },
               ),
             ),
-            DropdownButton(
-              hint: Text('Select News Language'),
-              items: [
-                DropdownMenuItem(
-                  child: Text('English'),
-                  value: 'English',
-                ),
-                DropdownMenuItem(
-                  child: Text('Hindi'),
-                  value: 'Hindi',
-                ),
-              ],
-              onChanged: (value) {},
+            ListTile(
+              leading: Text(
+                "Select Country",
+                style: kArticleTitle,
+              ),
+              trailing: DropdownButton(
+                  hint: Text('Select Country'),
+                  value: dropDownValue,
+                  onChanged: (value) {
+                    setState(() {
+                      dropDownValue = value;
+                    });
+                  },
+                  items: List<DropdownMenuItem>.from(
+                      countries.entries.map((country) {
+                    return DropdownMenuItem(
+                      value: country.key,
+                      child: Text(country.key),
+                    );
+                  })).toList()),
             ),
           ],
         ),

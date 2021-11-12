@@ -23,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
       centerTitle: Theme.of(context).appBarTheme.centerTitle,
       backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
       iconTheme: Theme.of(context).appBarTheme.iconTheme,
-      elevation: 3.0,
+      elevation: 2.0,
     );
     return Scaffold(
       appBar: appBar,

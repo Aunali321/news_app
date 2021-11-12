@@ -22,6 +22,7 @@ class ThemeProvider extends ChangeNotifier {
       unselectedItemColor: Colors.black,
       selectedItemColor: Colors.blue,
     ),
+    dividerColor: Color(0x75000000),
   );
 
   ThemeData dark = ThemeData.dark().copyWith(
@@ -39,6 +40,7 @@ class ThemeProvider extends ChangeNotifier {
       unselectedItemColor: Colors.white,
       selectedItemColor: Colors.blue,
     ),
+    dividerColor: Colors.grey[400],
   );
 
   ThemeProvider({bool isDarkMode}) {

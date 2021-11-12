@@ -77,7 +77,6 @@ class Article extends StatelessWidget {
         ),
         Divider(
           thickness: 0.5,
-          color: Color(0x75000000),
         ),
       ],
     );

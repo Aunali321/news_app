@@ -6,6 +6,7 @@ import 'package:news_app/screens/trending_screen.dart';
 import 'package:news_app/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import './models/country_model.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,47 +37,59 @@ class _MyAppState extends State<MyApp> {
     TrendingScreen(),
     SettingsScreen(),
   ];
-  int currentIndex = 2;
+  int currentIndex = 3;
 
   @override
   Widget build(BuildContext context) {
     return Consumer<ThemeProvider>(builder: (context, themeProvider, child) {
-      return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: themeProvider.getTheme(),
-        home: Scaffold(
-          bottomNavigationBar: BottomNavigationBarTheme(
-            data: themeProvider.getTheme().bottomNavigationBarTheme,
-            child: BottomNavigationBar(
-              currentIndex: currentIndex,
-              onTap: (value) {
-                currentIndex = value;
-                setState(() {});
-              },
-              type: BottomNavigationBarType.shifting,
-              items: [
-                BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.home,
-                  ),
-                  label: "Home",
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.search),
-                  label: "Search",
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.trending_up),
-                  label: "Trending",
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.settings),
-                  label: "Settings",
-                ),
-              ],
-            ),
+      return MultiProvider(
+        providers: [
+          ChangeNotifierProvider<ThemeProvider>(
+            create: (BuildContext context) {
+              return themeProvider;
+            },
           ),
-          body: screens[currentIndex],
+          ChangeNotifierProvider<Country>(create: (BuildContext context) {
+            return Country();
+          }),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: themeProvider.getTheme(),
+          home: Scaffold(
+            bottomNavigationBar: BottomNavigationBarTheme(
+              data: themeProvider.getTheme().bottomNavigationBarTheme,
+              child: BottomNavigationBar(
+                currentIndex: currentIndex,
+                onTap: (value) {
+                  currentIndex = value;
+                  setState(() {});
+                },
+                type: BottomNavigationBarType.shifting,
+                items: [
+                  BottomNavigationBarItem(
+                    icon: Icon(
+                      Icons.home,
+                    ),
+                    label: "Home",
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.search),
+                    label: "Search",
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.trending_up),
+                    label: "Trending",
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.settings),
+                    label: "Settings",
+                  ),
+                ],
+              ),
+            ),
+            body: screens[currentIndex],
+          ),
         ),
       );
     });
