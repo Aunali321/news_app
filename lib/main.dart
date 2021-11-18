@@ -49,8 +49,8 @@ class _MyAppState extends State<MyApp> {
               return themeProvider;
             },
           ),
-          ChangeNotifierProvider<Country>(create: (BuildContext context) {
-            return Country();
+          ChangeNotifierProvider<CountryModel>(create: (BuildContext context) {
+            return CountryModel();
           }),
         ],
         child: MaterialApp(

@@ -12,11 +12,10 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  String dropDownValue = 'India';
-
+  String dropDownValue = "India";
   @override
   Widget build(BuildContext context) {
-    final countries = Provider.of<Country>(context).countries;
+    final countries = Provider.of<CountryModel>(context).countries;
 
     return Scaffold(
       appBar: AppBar(
@@ -58,6 +57,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   onChanged: (value) {
                     setState(() {
                       dropDownValue = value;
+
+                      Provider.of<CountryModel>(context, listen: false)
+                          .changeCountry(value);
+                      dropDownValue =
+                          Provider.of<CountryModel>(context).selectedCountry;
                     });
                   },
                   items: List<DropdownMenuItem>.from(

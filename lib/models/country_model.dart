@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-class Country extends ChangeNotifier {
+class CountryModel extends ChangeNotifier {
   final countries = {
     'India': 'in',
     'USA': "us",
@@ -9,4 +9,12 @@ class Country extends ChangeNotifier {
     'France': "fr",
     'United Kingdom': "gb",
   };
+
+  var selectedCountry = 'in';
+
+  void changeCountry(String country) {
+    selectedCountry = countries[country];
+    notifyListeners();
+    print(selectedCountry);
+  }
 }

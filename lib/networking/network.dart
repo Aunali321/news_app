@@ -1,12 +1,16 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
+import 'package:news_app/models/country_model.dart';
+import 'package:provider/provider.dart';
 import '../models/article_model.dart';
 import '../models/search_article_model.dart';
 
 const URL = "https://free-news.p.rapidapi.com/v1/search?q=Elon%20Musk&lang=en";
 
 class NetworkFetcher {
-  Future<List<ArticleModel>> getArticles() async {
+  Future<List<ArticleModel>> getArticles(BuildContext context) async {
+    final selectedCountry = Provider.of<CountryModel>(context).selectedCountry;
     // Dio dio = Dio();
     // Response response = await dio.request(
     //   "https://free-news.p.rapidapi.com/v1/search?q=Elon%20Musk&lang=en",
@@ -19,7 +23,7 @@ class NetworkFetcher {
     // );
     var response = await http.get(
       Uri.parse(
-          "https://saurav.tech/NewsAPI/top-headlines/category/technology/us.json"),
+          "https://saurav.tech/NewsAPI/top-headlines/category/technology/$selectedCountry.json"),
       // headers: {
       //   "x-rapidapi-host": "free-news.p.rapidapi.com",
       //   "x-rapidapi-key": "b8dbf08bbamshfa839ce8398d8f7p13ed2fjsn80ee58a61a8d"

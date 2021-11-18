@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
               appBar.preferredSize.height -
               mediaQuery.padding.bottom,
           child: FutureBuilder(
-            future: networkFetcher.getArticles(),
+            future: networkFetcher.getArticles(context),
             builder: (BuildContext context,
                 AsyncSnapshot<List<ArticleModel>> snapshot) {
               if (snapshot.hasData) {
