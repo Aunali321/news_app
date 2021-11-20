@@ -100,48 +100,39 @@ class _HomeScreenState extends State<HomeScreen> {
       iconTheme: Theme.of(context).appBarTheme.iconTheme,
       elevation: 2.0,
     );
+
     return Scaffold(
       appBar: appBar,
       body: SafeArea(
-        child: Column(
-          children: [
-            Wrap(
-              spacing: 8,
-              direction: Axis.horizontal,
-              children: categoryChips(),
-            ),
-            Container(
-              padding:
-                  const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),
-              height: mediaQuery.size.height -
-                  mediaQuery.padding.top -
-                  appBar.preferredSize.height -
-                  mediaQuery.padding.bottom,
-              child: FutureBuilder(
-                future: networkFetcher.getArticles(context),
-                builder: (BuildContext context,
-                    AsyncSnapshot<List<ArticleModel>> snapshot) {
-                  if (snapshot.hasData) {
-                    List<ArticleModel> articles = snapshot.data;
-                    return ListView.builder(
-                      itemCount: articles.length,
-                      itemBuilder: (context, index) {
-                        return Article(
-                          title: articles[index].title,
-                          imageURL: articles[index].imageURL,
-                          publishedAt: articles[index].publishedAt,
-                          url: articles[index].url,
-                        );
-                      },
+        child: Container(
+          padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),
+          height: mediaQuery.size.height -
+              mediaQuery.padding.top -
+              appBar.preferredSize.height -
+              mediaQuery.padding.bottom,
+          child: FutureBuilder(
+            future: networkFetcher.getArticles(context),
+            builder: (BuildContext context,
+                AsyncSnapshot<List<ArticleModel>> snapshot) {
+              if (snapshot.hasData) {
+                List<ArticleModel> articles = snapshot.data;
+                return ListView.builder(
+                  itemCount: articles.length,
+                  itemBuilder: (context, index) {
+                    return Article(
+                      title: articles[index].title,
+                      imageURL: articles[index].imageURL,
+                      publishedAt: articles[index].publishedAt,
+                      url: articles[index].url,
                     );
-                  }
-                  return SpinKitDoubleBounce(
-                    color: Colors.blueGrey[300],
-                  );
-                },
-              ),
-            ),
-          ],
+                  },
+                );
+              }
+              return SpinKitDoubleBounce(
+                color: Colors.blueGrey[300],
+              );
+            },
+          ),
         ),
       ),
     );
