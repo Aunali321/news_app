@@ -15,80 +15,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   NetworkFetcher networkFetcher = NetworkFetcher();
 
-  List<ChipModel> categories = [
-    ChipModel(
-      label: Text("Technology"),
-      onSelected: (value) {},
-      backgroundColor: Colors.transparent,
-      shape: StadiumBorder(side: BorderSide()),
-      isSelected: false,
-    ),
-    ChipModel(
-      label: Text("Business"),
-      onSelected: (value) {},
-      backgroundColor: Colors.transparent,
-      shape: StadiumBorder(side: BorderSide()),
-      isSelected: false,
-    ),
-    ChipModel(
-      label: Text("Science"),
-      onSelected: (value) {},
-      backgroundColor: Colors.transparent,
-      shape: StadiumBorder(side: BorderSide()),
-      isSelected: false,
-    ),
-    ChipModel(
-      label: Text("Health"),
-      onSelected: (value) {},
-      backgroundColor: Colors.transparent,
-      shape: StadiumBorder(side: BorderSide()),
-      isSelected: false,
-    ),
-    ChipModel(
-      label: Text("General"),
-      onSelected: (value) {},
-      backgroundColor: Colors.transparent,
-      shape: StadiumBorder(side: BorderSide()),
-      isSelected: false,
-    ),
-    ChipModel(
-      label: Text("Entertainment"),
-      onSelected: (value) {},
-      backgroundColor: Colors.transparent,
-      shape: StadiumBorder(side: BorderSide()),
-      isSelected: false,
-    ),
-    ChipModel(
-      label: Text("Sports"),
-      onSelected: (value) {},
-      backgroundColor: Colors.transparent,
-      shape: StadiumBorder(side: BorderSide()),
-      isSelected: false,
-    ),
-  ];
-
-  // List<Widget> categoryChips() {
-  //   List<Widget> chips = [];
-  //   for (int i = 0; i < categories.length; i++) {
-  //     Widget item = Padding(
-  //       padding: const EdgeInsets.only(left: 10.0, right: 5.0),
-  //       child: ChoiceChip(
-  //         label: categories[i].label,
-  //         selected: categories[i].isSelected,
-  //         onSelected: (bool value) {
-  //           setState(() {
-  //             categories[i].isSelected = value;
-  //           });
-  //         },
-  //         backgroundColor: categories[i].backgroundColor,
-  //         shape: StadiumBorder(side: BorderSide()),
-  //       ),
-  //     );
-  //     chips.add(item);
-  //   }
-  //   return chips;
-  // }
-
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
@@ -106,33 +32,39 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            Container(
-              height: 50,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                primary: true,
-                shrinkWrap: true,
-                children: [
-                  Wrap(
-                    spacing: 4.0,
-                    children: List<Widget>.generate(
-                      categories.length,
-                      (int index) {
-                        return ChoiceChip(
-                          label: categories[index].label,
-                          selected: categories[index].isSelected,
-                          backgroundColor: categories[index].backgroundColor,
-                          shape: StadiumBorder(side: BorderSide()),
-                          onSelected: (bool value) {
-                            setState(() {
-                              categories[index].isSelected = value;
-                            });
-                          },
-                        );
-                      },
-                    ).toList(),
-                  ),
-                ],
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: List<Widget>.generate(
+                  ChipModel.categories.length,
+                  (int index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 6.0,
+                        vertical: 2.0,
+                      ),
+                      child: ChoiceChip(
+                        label: ChipModel.categories[index].label,
+                        selected: ChipModel.categories[index].isSelected,
+                        backgroundColor:
+                            ChipModel.categories[index].backgroundColor,
+                        shape: StadiumBorder(side: BorderSide()),
+                        selectedColor: Colors.lightBlue[200],
+                        disabledColor: Colors.grey,
+                        labelStyle: TextStyle(
+                          color: Colors.black,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w600,
+                        ),
+                        onSelected: (bool value) {
+                          setState(() {
+                            ChipModel.categories[index].isSelected = value;
+                          });
+                        },
+                      ),
+                    );
+                  },
+                ).toList(),
               ),
             ),
             Container(

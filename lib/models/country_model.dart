@@ -10,7 +10,7 @@ class CountryModel extends ChangeNotifier {
     'United Kingdom': "gb",
   };
 
-  var selectedCountry = 'in';
+  var selectedCountry = 'us';
 
   void changeCountry(String country) {
     selectedCountry = countries[country];
