@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ChipModel {
-  String label;
+  Text label;
   Color backgroundColor;
   bool isSelected;
   OutlinedBorder shape;

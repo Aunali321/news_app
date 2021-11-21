@@ -17,49 +17,49 @@ class _HomeScreenState extends State<HomeScreen> {
 
   List<ChipModel> categories = [
     ChipModel(
-      label: "Technology",
+      label: Text("Technology"),
       onSelected: (value) {},
       backgroundColor: Colors.transparent,
       shape: StadiumBorder(side: BorderSide()),
       isSelected: false,
     ),
     ChipModel(
-      label: "Business",
+      label: Text("Business"),
       onSelected: (value) {},
       backgroundColor: Colors.transparent,
       shape: StadiumBorder(side: BorderSide()),
       isSelected: false,
     ),
     ChipModel(
-      label: "Science",
+      label: Text("Science"),
       onSelected: (value) {},
       backgroundColor: Colors.transparent,
       shape: StadiumBorder(side: BorderSide()),
       isSelected: false,
     ),
     ChipModel(
-      label: "Health",
+      label: Text("Health"),
       onSelected: (value) {},
       backgroundColor: Colors.transparent,
       shape: StadiumBorder(side: BorderSide()),
       isSelected: false,
     ),
     ChipModel(
-      label: "General",
+      label: Text("General"),
       onSelected: (value) {},
       backgroundColor: Colors.transparent,
       shape: StadiumBorder(side: BorderSide()),
       isSelected: false,
     ),
     ChipModel(
-      label: "Entertainment",
+      label: Text("Entertainment"),
       onSelected: (value) {},
       backgroundColor: Colors.transparent,
       shape: StadiumBorder(side: BorderSide()),
       isSelected: false,
     ),
     ChipModel(
-      label: "Sports",
+      label: Text("Sports"),
       onSelected: (value) {},
       backgroundColor: Colors.transparent,
       shape: StadiumBorder(side: BorderSide()),
@@ -67,27 +67,27 @@ class _HomeScreenState extends State<HomeScreen> {
     ),
   ];
 
-  List<Widget> categoryChips() {
-    List<Widget> chips = [];
-    for (int i = 0; i < categories.length; i++) {
-      Widget item = Padding(
-        padding: const EdgeInsets.only(left: 10.0, right: 5.0),
-        child: FilterChip(
-          label: Text(categories[i].label),
-          selected: categories[i].isSelected,
-          onSelected: (bool value) {
-            setState(() {
-              categories[i].isSelected = value;
-            });
-          },
-          backgroundColor: categories[i].backgroundColor,
-          shape: StadiumBorder(side: BorderSide()),
-        ),
-      );
-      chips.add(item);
-    }
-    return chips;
-  }
+  // List<Widget> categoryChips() {
+  //   List<Widget> chips = [];
+  //   for (int i = 0; i < categories.length; i++) {
+  //     Widget item = Padding(
+  //       padding: const EdgeInsets.only(left: 10.0, right: 5.0),
+  //       child: ChoiceChip(
+  //         label: categories[i].label,
+  //         selected: categories[i].isSelected,
+  //         onSelected: (bool value) {
+  //           setState(() {
+  //             categories[i].isSelected = value;
+  //           });
+  //         },
+  //         backgroundColor: categories[i].backgroundColor,
+  //         shape: StadiumBorder(side: BorderSide()),
+  //       ),
+  //     );
+  //     chips.add(item);
+  //   }
+  //   return chips;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -104,35 +104,70 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: appBar,
       body: SafeArea(
-        child: Container(
-          padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),
-          height: mediaQuery.size.height -
-              mediaQuery.padding.top -
-              appBar.preferredSize.height -
-              mediaQuery.padding.bottom,
-          child: FutureBuilder(
-            future: networkFetcher.getArticles(context),
-            builder: (BuildContext context,
-                AsyncSnapshot<List<ArticleModel>> snapshot) {
-              if (snapshot.hasData) {
-                List<ArticleModel> articles = snapshot.data;
-                return ListView.builder(
-                  itemCount: articles.length,
-                  itemBuilder: (context, index) {
-                    return Article(
-                      title: articles[index].title,
-                      imageURL: articles[index].imageURL,
-                      publishedAt: articles[index].publishedAt,
-                      url: articles[index].url,
+        child: Column(
+          children: [
+            Container(
+              height: 50,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                primary: true,
+                shrinkWrap: true,
+                children: [
+                  Wrap(
+                    spacing: 4.0,
+                    children: List<Widget>.generate(
+                      categories.length,
+                      (int index) {
+                        return ChoiceChip(
+                          label: categories[index].label,
+                          selected: categories[index].isSelected,
+                          backgroundColor: categories[index].backgroundColor,
+                          shape: StadiumBorder(side: BorderSide()),
+                          onSelected: (bool value) {
+                            setState(() {
+                              categories[index].isSelected = value;
+                            });
+                          },
+                        );
+                      },
+                    ).toList(),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              padding:
+                  const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),
+              height: mediaQuery.size.height -
+                  mediaQuery.padding.top -
+                  appBar.preferredSize.height -
+                  mediaQuery.padding.bottom -
+                  200,
+              child: FutureBuilder(
+                future: networkFetcher.getArticles(context),
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<ArticleModel>> snapshot) {
+                  if (snapshot.hasData) {
+                    List<ArticleModel> articles = snapshot.data;
+                    return ListView.builder(
+                      itemCount: articles.length,
+                      itemBuilder: (context, index) {
+                        return Article(
+                          title: articles[index].title,
+                          imageURL: articles[index].imageURL,
+                          publishedAt: articles[index].publishedAt,
+                          url: articles[index].url,
+                        );
+                      },
                     );
-                  },
-                );
-              }
-              return SpinKitDoubleBounce(
-                color: Colors.blueGrey[300],
-              );
-            },
-          ),
+                  }
+                  return SpinKitDoubleBounce(
+                    color: Colors.blueGrey[300],
+                  );
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );
