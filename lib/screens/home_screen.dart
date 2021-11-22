@@ -67,36 +67,38 @@ class _HomeScreenState extends State<HomeScreen> {
                 ).toList(),
               ),
             ),
-            Container(
-              padding:
-                  const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),
-              height: mediaQuery.size.height -
-                  mediaQuery.padding.top -
-                  appBar.preferredSize.height -
-                  mediaQuery.padding.bottom -
-                  200,
-              child: FutureBuilder(
-                future: networkFetcher.getArticles(context),
-                builder: (BuildContext context,
-                    AsyncSnapshot<List<ArticleModel>> snapshot) {
-                  if (snapshot.hasData) {
-                    List<ArticleModel> articles = snapshot.data;
-                    return ListView.builder(
-                      itemCount: articles.length,
-                      itemBuilder: (context, index) {
-                        return Article(
-                          title: articles[index].title,
-                          imageURL: articles[index].imageURL,
-                          publishedAt: articles[index].publishedAt,
-                          url: articles[index].url,
-                        );
-                      },
+            Expanded(
+              child: Container(
+                padding:
+                    const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),
+                // height: mediaQuery.size.height -
+                //     mediaQuery.padding.top -
+                //     appBar.preferredSize.height -
+                //     mediaQuery.padding.bottom -
+                //     200,
+                child: FutureBuilder(
+                  future: networkFetcher.getArticles(context),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<ArticleModel>> snapshot) {
+                    if (snapshot.hasData) {
+                      List<ArticleModel> articles = snapshot.data;
+                      return ListView.builder(
+                        itemCount: articles.length,
+                        itemBuilder: (context, index) {
+                          return Article(
+                            title: articles[index].title,
+                            imageURL: articles[index].imageURL,
+                            publishedAt: articles[index].publishedAt,
+                            url: articles[index].url,
+                          );
+                        },
+                      );
+                    }
+                    return SpinKitDoubleBounce(
+                      color: Colors.blueGrey[300],
                     );
-                  }
-                  return SpinKitDoubleBounce(
-                    color: Colors.blueGrey[300],
-                  );
-                },
+                  },
+                ),
               ),
             ),
           ],
