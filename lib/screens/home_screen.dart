@@ -49,10 +49,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         backgroundColor:
                             ChipModel.categories[index].backgroundColor,
                         shape: StadiumBorder(side: BorderSide()),
-                        selectedColor: Colors.lightBlue[200],
+                        selectedColor: Colors.blue,
                         disabledColor: Colors.grey,
                         labelStyle: TextStyle(
-                          color: Colors.black,
                           fontFamily: 'Poppins',
                           fontWeight: FontWeight.w600,
                         ),
