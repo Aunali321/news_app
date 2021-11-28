@@ -14,10 +14,10 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   NetworkFetcher networkFetcher = NetworkFetcher();
+  String selectedChip = "Technology";
 
   @override
   Widget build(BuildContext context) {
-    final mediaQuery = MediaQuery.of(context);
     final appBar = AppBar(
       title: Text('Latest News'),
       titleTextStyle: Theme.of(context).appBarTheme.titleTextStyle,
@@ -32,13 +32,17 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            ChoiceChips(),
+            ChoiceChips(chipCallback: (String selectedChipValue) {
+              setState(() {
+                selectedChip = selectedChipValue;
+              });
+            }),
             Expanded(
               child: Container(
                 padding:
                     const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),
                 child: FutureBuilder(
-                  future: networkFetcher.getArticles(context),
+                  future: networkFetcher.getArticles(context, selectedChip),
                   builder: (BuildContext context,
                       AsyncSnapshot<List<ArticleModel>> snapshot) {
                     if (snapshot.hasData) {

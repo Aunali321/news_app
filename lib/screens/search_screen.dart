@@ -6,8 +6,6 @@ import 'package:news_app/widgets/search_bar.dart';
 
 NetworkFetcher networkFetcher = NetworkFetcher();
 
-void getSearchQuery(String query) {}
-
 class SearchScreen extends StatefulWidget {
   @override
   State<SearchScreen> createState() => _SearchScreenState();

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class ChoiceChips extends StatefulWidget {
-  ChoiceChips({Key key}) : super(key: key);
+  ChoiceChips({Key key, this.chipCallback}) : super(key: key);
+
+  final Function chipCallback;
 
   final List<String> chipList = [
     "Technology",
@@ -19,6 +21,7 @@ class ChoiceChips extends StatefulWidget {
 
 class _ChoiceChipsState extends State<ChoiceChips> {
   String selectedChoice = "Technology";
+  String selectedChip;
 
   _buildChoiceList() {
     List<Widget> choices = [];
@@ -38,6 +41,8 @@ class _ChoiceChipsState extends State<ChoiceChips> {
           onSelected: (selected) {
             setState(() {
               selectedChoice = item;
+              selectedChip = item;
+              widget.chipCallback;
             });
           },
         ),
