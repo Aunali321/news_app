@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/networking/network.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-
+import 'package:news_app/widgets/choice_chips.dart';
 import '../models/article_model.dart';
 import '../widgets/article.dart';
 
@@ -14,6 +14,24 @@ class TrendingScreen extends StatefulWidget {
 
 class _TrendingScreenState extends State<TrendingScreen> {
   NetworkFetcher networkFetcher = NetworkFetcher();
+  String selectedChip = "technology";
+
+  Widget _loadingAnimation() {
+    return Center(
+      child: SpinKitDoubleBounce(
+        color: Colors.blueGrey[300],
+      ),
+    );
+  }
+
+  Future<void> getCategory(String category) async {
+    await setState(() {
+      selectedChip = category;
+      // print(selectedChip);
+    });
+    _loadingAnimation();
+  }
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
@@ -28,37 +46,37 @@ class _TrendingScreenState extends State<TrendingScreen> {
     return Scaffold(
       appBar: appBar,
       body: SafeArea(
-        child: Container(
-          padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),
-          height: mediaQuery.size.height -
-              appBar.preferredSize.height -
-              mediaQuery.padding.top -
-              mediaQuery.padding.bottom,
-          child: FutureBuilder(
-            future: networkFetcher.getTrendingArticles(),
-            builder: (BuildContext context,
-                AsyncSnapshot<List<ArticleModel>> snapshot) {
-              if (snapshot.hasData) {
-                List<ArticleModel> articles = snapshot.data;
-                return ListView.builder(
-                  itemCount: articles.length,
-                  itemBuilder: (context, index) {
-                    return Article(
-                      title: articles[index].title,
-                      imageURL: articles[index].imageURL,
-                      publishedAt: articles[index].publishedAt,
-                      url: articles[index].url,
-                    );
+        child: Column(
+          children: [
+            ChoiceChips(chipCallback: getCategory),
+            Expanded(
+              child: Container(
+                padding:
+                    const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),
+                child: FutureBuilder(
+                  future: networkFetcher.getTrendingArticles(selectedChip),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<ArticleModel>> snapshot) {
+                    if (snapshot.hasData) {
+                      List<ArticleModel> articles = snapshot.data;
+                      return ListView.builder(
+                        itemCount: articles.length,
+                        itemBuilder: (context, index) {
+                          return Article(
+                            title: articles[index].title,
+                            imageURL: articles[index].imageURL,
+                            publishedAt: articles[index].publishedAt,
+                            url: articles[index].url,
+                          );
+                        },
+                      );
+                    }
+                    return _loadingAnimation();
                   },
-                );
-              }
-              return Center(
-                child: SpinKitDoubleBounce(
-                  color: Colors.blueGrey[300],
                 ),
-              );
-            },
-          ),
+              ),
+            ),
+          ],
         ),
       ),
     );

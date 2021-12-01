@@ -12,9 +12,25 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
+Widget _loadingAnimation() {
+  return Center(
+    child: SpinKitDoubleBounce(
+      color: Colors.blueGrey[300],
+    ),
+  );
+}
+
 class _HomeScreenState extends State<HomeScreen> {
   NetworkFetcher networkFetcher = NetworkFetcher();
-  String selectedChip = "Technology";
+  String selectedChip = "technology";
+
+  Future<void> getCategory(String category) async {
+    await setState(() {
+      selectedChip = category;
+      // print(selectedChip);
+    });
+    _loadingAnimation();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            ChoiceChips(chipCallback: (String selectedChipValue) {
-              setState(() {
-                selectedChip = selectedChipValue;
-              });
-            }),
+            ChoiceChips(chipCallback: getCategory),
             Expanded(
               child: Container(
                 padding:
@@ -59,9 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                       );
                     }
-                    return SpinKitDoubleBounce(
-                      color: Colors.blueGrey[300],
-                    );
+                    return _loadingAnimation();
                   },
                 ),
               ),

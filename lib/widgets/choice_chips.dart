@@ -6,13 +6,13 @@ class ChoiceChips extends StatefulWidget {
   final Function chipCallback;
 
   final List<String> chipList = [
-    "Technology",
-    "Business",
-    "Science",
-    "Health",
-    "General",
-    "Entertainment",
-    "Sports",
+    "technology",
+    "business",
+    "science",
+    "health",
+    "general",
+    "entertainment",
+    "sports",
   ];
 
   @override
@@ -20,7 +20,7 @@ class ChoiceChips extends StatefulWidget {
 }
 
 class _ChoiceChipsState extends State<ChoiceChips> {
-  String selectedChoice = "Technology";
+  String selectedChoice = "technology";
   String selectedChip;
 
   _buildChoiceList() {
@@ -42,7 +42,7 @@ class _ChoiceChipsState extends State<ChoiceChips> {
             setState(() {
               selectedChoice = item;
               selectedChip = item;
-              widget.chipCallback;
+              widget.chipCallback(selectedChoice);
             });
           },
         ),
