@@ -15,6 +15,5 @@ class CountryModel extends ChangeNotifier {
   void changeCountry(String country) {
     selectedCountry = countries[country];
     notifyListeners();
-    print(selectedCountry);
   }
 }

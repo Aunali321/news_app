@@ -27,14 +27,12 @@ class _TrendingScreenState extends State<TrendingScreen> {
   Future<void> getCategory(String category) async {
     await setState(() {
       selectedChip = category;
-      // print(selectedChip);
     });
     _loadingAnimation();
   }
 
   @override
   Widget build(BuildContext context) {
-    final mediaQuery = MediaQuery.of(context);
     final appBar = AppBar(
       title: Text('Trending News'),
       titleTextStyle: Theme.of(context).appBarTheme.titleTextStyle,

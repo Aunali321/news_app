@@ -27,7 +27,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> getCategory(String category) async {
     await setState(() {
       selectedChip = category;
-      // print(selectedChip);
     });
     _loadingAnimation();
   }
